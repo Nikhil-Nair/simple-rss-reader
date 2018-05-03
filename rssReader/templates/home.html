@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}RSS Reader{% endblock %}
+
+{% block content %}
+<div class="jumbotron jumbotron-fluid" style="background:gray !important">
+  <div class="container text-center">
+    <form class="form text-center" action="" method="post" id='FeedURLForm'>
+      {% csrf_token %}
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="RSS URL Here" name='feedURL' id = 'feedURL'>
+      </div>
+      <button type="submit" class="btn btn-outline-warning">Submit</button>
+    </form>
+
+    <table class="table table-dark table-borderless">
+    <thead class="text-center text-warning" id="feedSource">
+    </thead>
+
+    <tbody id="feed">
+    </tbody>
+  </table>
+
+
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+$("#FeedURLForm").on("submit", function (event) {
+   event.preventDefault();
+   var feedURL = $('#feedURL').val();
+   get_feed(feedURL);
+});
+
+function get_feed(feedURL){
+  $.ajax({
+      url : "ajax/getfeed/",
+      type : "GET",
+      data : {feedURL : feedURL},
+      success : function(json){
+        var response = JSON.parse(json);
+        var title = response["feedTitle"];
+        var data = response['feedData'];
+        $('#feedSource').append('<tr><th><h3>' + title + '</h3></th></tr>');
+        for(i=0;i<data.length;i++){
+          $('#feed').append('<tr><td><h4 class="text-warning">'+data[i][0]+'</h4><br/>'+data[i][1]+'<br/><p class="text-secondary">'+data[i][3]+'</p><a href="'+data[i][2]+'">Read More</td></tr>');
+        }
+      },
+
+  });
+}
+</script>
+{% endblock %}

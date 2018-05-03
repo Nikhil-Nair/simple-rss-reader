@@ -1,0 +1,61 @@
+<head>
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+    <ul class="navbar-nav mr-auto text-center">
+    {% if user.is_authenticated %}
+      <span class="navbar-text text-warning">
+        Hi {{user.username}}!
+      </span>
+      {% else %}
+      <span class="navbar-text text-warning">
+        Welcome Guest!
+      </span>
+    {% endif %}
+    </ul>
+
+    <ul class=" navbar-nav mx-auto ">
+      <a class="navbar navbar-brand text-center text-warning" href="/"><h2>ASimpleRSSReader</h2></a>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link text-warning" href="{% url 'logout'%}">Logout</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link text-primary " href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-success " href="{% url 'signup' %}">New User?</a>
+      </li>
+    {% endif %}
+    </ul>
+  </nav>
+
+  {% if user.is_authenticated %}
+    {% block content %}{% endblock %}
+  {% else %}
+    {% block auth %}{% endblock %}
+  {% endif %}
+
+</body>
+
+<footer>
+  {% block javascript %}{% endblock %}
+</footer>
