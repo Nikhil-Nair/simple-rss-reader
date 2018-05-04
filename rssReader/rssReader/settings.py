@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4^^ltqc%%a&0x8$z&$adxu@xoo7ovjjwu$myi#s(u_d(poc0j9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['nikhilnair.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #thirdPartyApps
     'crispy_forms',
+    'core',
     #myApps
     'feedProcessor',
 ]

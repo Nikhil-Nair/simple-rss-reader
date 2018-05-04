@@ -14,12 +14,9 @@
     </form>
 
     <table class="table table-dark table-borderless">
-    <thead class="text-center text-warning" id="feedSource">
-    </thead>
-
-    <tbody id="feed">
-    </tbody>
-  </table>
+      <tbody id="feed">
+      </tbody>
+    </table>
 
 
   </div>
@@ -41,9 +38,7 @@ function get_feed(feedURL){
       data : {feedURL : feedURL},
       success : function(json){
         var response = JSON.parse(json);
-        var title = response["feedTitle"];
         var data = response['feedData'];
-        $('#feedSource').append('<tr><th><h3>' + title + '</h3></th></tr>');
         for(i=0;i<data.length;i++){
           $('#feed').append('<tr><td><h4 class="text-warning">'+data[i][0]+'</h4><br/>'+data[i][1]+'<br/><p class="text-secondary">'+data[i][3]+'</p><a href="'+data[i][2]+'">Read More</td></tr>');
         }

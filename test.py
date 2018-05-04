@@ -18,8 +18,8 @@ else:
     for i in range(0,len(r['entries'])):
         feed.append([r['entries'][i]['title'],r['entries'][i]['description'],r['entries'][i]['link']])
 
-print(feed)
-print(len(feed))
-print([feed[0][0]])
-print(r['entries'])
-print(r.headers)
+print(r['feed']['title'])
+# print(len(feed))
+# print([feed[0][0]])
+# print(r['entries'])
+# print(r.headers)
